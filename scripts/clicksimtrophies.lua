@@ -1,5 +1,5 @@
 local WallyV2 = select(2, pcall(function()
-    return loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wally2", true))()
+    return loadstring(game:HttpGet("https://gist.githubusercontent.com/paygammy/23a587238c0cb1ff313714287739966a/raw", true))()
 end))
 
 if type(WallyV2) == 'table' then
