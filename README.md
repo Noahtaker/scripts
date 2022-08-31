@@ -1,3 +1,3 @@
-# noahtaker's Script Library
+# NoahTaker's Script Library
 
 Open source script library.
