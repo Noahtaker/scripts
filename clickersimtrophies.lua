@@ -1,14 +1,31 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wally2", true))()
-local w = library:CreateWindow('Clicker Simulator')
-w:Section('Trophies')
-local b = w:Button("Collect Trophies", function()
-    local playerHead = game.Players.LocalPlayer.Character.Head
+local WallyV2 = select(2, pcall(function()
+    return loadstring(game:HttpGet("https://gist.githubusercontent.com/paygammy/23a587238c0cb1ff313714287739966a/raw", true))()
+end))
 
-    for i, v in pairs(game:GetService("Workspace").Zones.HalfYear.Drops:GetDescendants()) do
-        if v.Name =="TouchInterest" and v.Parent then
-            firetouchinterest(playerHead, v.Parent, 0)
-            wait(0.01) -- set any cd
-            firetouchinterest(playerHead, v.Parent, 1)
+if type(WallyV2) == 'table' then
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+
+    local Window = WallyV2:CreateWindow("Clicker Simulator")
+    Window:Section("Trophies")
+    Window:Button("Collect Trophies", function()
+        local Head = select(2, pcall(function()
+            return LocalPlayer.Character.Head
+        end))
+        local Drops = select(2, pcall(function()
+            return workspace.Zones.HalfYear.Drops
+        end))
+        if typeof(Head) == 'Instance' and Head:IsA("BasePart") and typeof(Drops) == 'Instance' then
+            for _, v in pairs(Drops:GetDescendants()) do
+                if v:IsA("TouchTransmitter") then
+                    local Part = v.Parent
+                    if typeof(Part) == 'Instance' and Part:IsA("BasePart") then
+                        firetouchinterest(Head, Part, 0)
+                        task.wait(.01)
+                        firetouchinterest(Head, Part, 1)
+                    end
+                end
+            end
         end
-    end
-end)
+    end)
+end
